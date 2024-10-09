@@ -6,8 +6,8 @@ import { useWallet } from "@solana/wallet-adapter-react";
 import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
 import "@solana/wallet-adapter-react-ui/styles.css";
 import NameModal from "./NameModal";
-import { useSetRecoilState } from "recoil";
-import { userState } from "@/store/userState";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import { userCount, userState } from "@/store/userState";
 import Link from "next/link";
 
 const colors = {
@@ -27,6 +27,7 @@ export default function Navbar({ onCreateMissionClick }: NavbarProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [walletAddress, setWalletAddress] = useState("");
   const setUser=useSetRecoilState(userState);
+  const [usersCount,setUsersCount]=useRecoilState(userCount);
 
   async function checkUserExists(walletAddress: string) {
     const response = await fetch("/api/users/login", {
@@ -60,6 +61,7 @@ export default function Navbar({ onCreateMissionClick }: NavbarProps) {
     const registerJsonResponse = await registerResponse.json();
     if (registerResponse.ok) {
       alert("User registered successfully!");
+      setUsersCount(usersCount+1);
     } else {
       setErrorMessage(registerJsonResponse.error || "Error during registration");
     }
@@ -74,13 +76,6 @@ export default function Navbar({ onCreateMissionClick }: NavbarProps) {
       }
   },[publicKey])
 
-  function handleCreateMis(){
-    if (!publicKey) {
-      alert("Connect to Wallet first to create a mission!!");
-      return;
-    }
-    onCreateMissionClick();
-  }
   return (
     <nav style={{ backgroundColor: colors.background }} className="pt-1 px-4 flex justify-between items-center">
       <Link href="/" className="text-3xl font-bold">
@@ -88,11 +83,6 @@ export default function Navbar({ onCreateMissionClick }: NavbarProps) {
       </Link>
 
       <div className="flex items-center">
-        <button
-          className="bg-purple-600 hover:bg-purple-700 text-white py-2 font-semibold  px-4 rounded transition mr-4"
-          onClick={handleCreateMis}
-          // onClick={onCreateMissionClick}
-        >Create Cudis Mission</button>
         <WalletMultiButton />
       </div>
 

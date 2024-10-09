@@ -6,7 +6,7 @@ export const userState = atom({
   default: null, // default value (aka initial value)
 });
 
-export const missionCount=atom({
-    key:"missionCount",
+export const userCount=atom({
+    key:"userCount",
     default:0
 })
