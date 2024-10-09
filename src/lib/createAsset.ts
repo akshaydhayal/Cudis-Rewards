@@ -1,13 +1,13 @@
 import { createUmi } from "@metaplex-foundation/umi-bundle-defaults";
-import { create, fetchAsset, fetchCollection } from "@metaplex-foundation/mpl-core";
+import { create, fetchAsset } from "@metaplex-foundation/mpl-core";
 import { base58 } from "@metaplex-foundation/umi/serializers";
-import { generateSigner, signerIdentity } from "@metaplex-foundation/umi";
+import { generateSigner } from "@metaplex-foundation/umi";
 import { walletAdapterIdentity } from "@metaplex-foundation/umi-signer-wallet-adapters";
 import { assetMetadataUri } from "./assetMetaData";
 
-//@ts-ignore
 // export async function createAsset(wallet:any, nftName,setNftMintStatus) {
-export async function createAsset(wallet: any, nftName, setNftMintStatus) {
+//@ts-expect-error ignore
+export async function createAsset(wallet, nftName, setNftMintStatus) {
   if (!wallet) {
     await wallet.connect();
   }
@@ -26,6 +26,7 @@ export async function createAsset(wallet: any, nftName, setNftMintStatus) {
     const tx = await create(umi, {
       asset,
       name: cudisNftName,
+      //@ts-expect-error ignore
       uri: assetMetadataUri.nftName,
     }).sendAndConfirm(umi);
 

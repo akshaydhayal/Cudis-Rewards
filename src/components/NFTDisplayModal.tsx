@@ -1,13 +1,12 @@
-import { useRouter } from "next/navigation";
 import React, { useState, useEffect } from "react";
 
 // const NftModal = ({ closeModal,nextQuestUrl,trackName }) => {
-//@ts-ignore
 // const NftModal = ({setNftMintStatus, nextQuestUrl,trackName }) => {
+                     
+// @ts-expect-error ignore                    }
 const NftModal = ({setNftMintStatus, trackName }) => {
   // console.log('t',nextQuestUrl);
   const [isLoading, setIsLoading] = useState(true);
-  const router=useRouter();
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false);

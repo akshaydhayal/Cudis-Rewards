@@ -17,11 +17,8 @@ const colors = {
   buttonHover: "#6AB7E4",
 };
 
-interface NavbarProps {
-  onCreateMissionClick: () => void;
-}
-
-export default function Navbar({ onCreateMissionClick }: NavbarProps) {
+// export default function Navbar({ onCreateMissionClick }: NavbarProps) {
+export default function Navbar() {
   const { publicKey } = useWallet();
   const [errorMessage, setErrorMessage] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);

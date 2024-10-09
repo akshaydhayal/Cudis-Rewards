@@ -19,6 +19,7 @@ export async function POST(req:NextRequest) {
     const today = new Date();
     today.setHours(0, 0, 0, 0); // Set to the start of the day
 
+    //@ts-expect-error ignore
     const existingProgress = user.dailyProgress.find((progress) => new Date(progress.timestamp).setHours(0, 0, 0, 0) === today.getTime());
 
     if (existingProgress) {
