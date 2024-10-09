@@ -9,6 +9,9 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { userCount, userState } from "@/store/userState";
+import { createAsset } from "@/lib/createAsset";
+import { useWallet } from "@solana/wallet-adapter-react";
+import NftModal from "@/components/NFTDisplayModal";
 
 const HomePage = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -16,6 +19,7 @@ const HomePage = () => {
   const [leaderboard, setLeaderboard] = useState([]);
   const userInfo = useRecoilValue(userState);
   const usersCount = useRecoilValue(userCount);
+  const [nftMintStatus, setNftMintStatus] = useState(false);
 
   console.log("userInfo: ",userInfo);
 
@@ -99,6 +103,8 @@ const HomePage = () => {
     }
   };
 
+    const wallet = useWallet();
+
   return (
     <div className="min-h-screen bg-gray-900 text-gray-100 p-8">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
@@ -127,9 +133,21 @@ const HomePage = () => {
               <Button type="submit" className="w-full bg-blue-600 hover:bg-blue-700">
                 Update Progress
               </Button>
+              <button
+                className="mt-6 w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 
+        px-4 rounded"
+                onClick={() => {
+                  // handleClick();
+                  createAsset(wallet, "beginner",setNftMintStatus);
+                  // createAsset(wallet, 'beginner', setNftMintStatus);
+                }}
+              >
+                Mint your NFT badge!!
+              </button>
             </form>
           </CardContent>
         </Card>
+        {nftMintStatus && <NftModal trackName="beginner" setNftMintStatus={setNftMintStatus}  />}
 
         <Card className="bg-gray-800 border-gray-700">
           <CardHeader>
