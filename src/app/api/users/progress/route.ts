@@ -22,15 +22,13 @@ const NFT_AWARDS = [
 ];
 
 export async function POST(req: NextRequest) {
-  await dbConnect();
-
-  const { walletAddress, dailyPoints, stepsWalked } = await req.json();
-
-  if (!walletAddress || dailyPoints === undefined || stepsWalked === undefined) {
-    return new Response(JSON.stringify({ error: "Missing required fields" }), { status: 400 });
-  }
-
   try {
+    await dbConnect();
+    const { walletAddress, dailyPoints, stepsWalked } = await req.json();
+  
+    if (!walletAddress || dailyPoints === undefined || stepsWalked === undefined) {
+      return new Response(JSON.stringify({ error: "Missing required fields" }), { status: 400 });
+    }
     const user = await UserModel.findOne({ walletAddress });
     if (!user) {
       return new Response(JSON.stringify({ error: "User not found" }), { status: 404 });
