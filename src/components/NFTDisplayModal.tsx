@@ -38,8 +38,8 @@ const NftModal = ({setNftMintStatus, trackName }) => {
               <Image
                 src={trackName == "beginner" ? "/beginner.png" : trackName == "intermediate" ? "/medium.png" : "/expert.png"}
                 alt="NFT Profile"
-                // width={500} // You should specify width and height for automatic optimization
-                // height={500} 
+                width={500} // You should specify width and height for automatic optimization
+                height={500} 
                 className="w-full h-full object-cover rounded-t-lg"
               />
 
