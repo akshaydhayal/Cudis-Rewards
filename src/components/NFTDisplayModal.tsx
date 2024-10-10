@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import Image from "next/image";
 
 // const NftModal = ({ closeModal,nextQuestUrl,trackName }) => {
 // const NftModal = ({setNftMintStatus, nextQuestUrl,trackName }) => {
@@ -28,11 +29,20 @@ const NftModal = ({setNftMintStatus, trackName }) => {
             <h2 className="text-2xl font-bold text-gray-800 mb-4">Congrats!! You got an NFT</h2>
             <div className="bg-gray-100 rounded-lg shadow-md w-[305px] h-[350px] flex flex-col items-center mb-6">
               <div className="w-full h-1/2 bg-gradient-to-br from-purple-500 to-blue-500 rounded-t-lg relative">
-                <img
+                {/* <img
                   src={trackName == "beginner" ? "/beginner.png" : trackName == "intermediate" ? "/medium.png" : "/expert.png"}
                   alt="NFT Profile"
                   className="w-full h-full object-cover rounded-t-lg"
-                />
+                /> */}
+              
+              <Image
+                src={trackName == "beginner" ? "/beginner.png" : trackName == "intermediate" ? "/medium.png" : "/expert.png"}
+                alt="NFT Profile"
+                // width={500} // You should specify width and height for automatic optimization
+                // height={500} 
+                className="w-full h-full object-cover rounded-t-lg"
+              />
+
                 {/* <img src="/solana.png" alt="NFT Profile" className="w-full h-full object-cover rounded-t-lg" /> */}
               </div>
               {/* <p className="text-center text-gray-800 font-semibold mt-2">Doodle #8978</p> */}

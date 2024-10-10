@@ -1,7 +1,5 @@
-// components/Navbar.tsx
 "use client";
-
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
 import "@solana/wallet-adapter-react-ui/styles.css";
@@ -17,16 +15,16 @@ const colors = {
   buttonHover: "#6AB7E4",
 };
 
-// export default function Navbar({ onCreateMissionClick }: NavbarProps) {
 export default function Navbar() {
   const { publicKey } = useWallet();
   const [errorMessage, setErrorMessage] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [walletAddress, setWalletAddress] = useState("");
-  const setUser=useSetRecoilState(userState);
-  const [usersCount,setUsersCount]=useRecoilState(userCount);
+  const setUser = useSetRecoilState(userState);
+  const [usersCount, setUsersCount] = useRecoilState(userCount);
 
-  async function checkUserExists(walletAddress: string) {
+  // Memoize checkUserExists function
+  const checkUserExists = useCallback(async (walletAddress: string) => {
     const response = await fetch("/api/users/login", {
       method: "POST",
       headers: {
@@ -36,7 +34,7 @@ export default function Navbar() {
     });
     const jsonResponse = await response.json();
     if (jsonResponse.user) {
-        setUser(jsonResponse.user);
+      setUser(jsonResponse.user);
     }
     console.log("response: ", jsonResponse);
 
@@ -44,7 +42,7 @@ export default function Navbar() {
       // User not found, show modal to enter name
       setIsModalOpen(true);
     }
-  }
+  }, [setUser]);
 
   const handleRegister = async (name: string) => {
     const registerResponse = await fetch("/api/users/register", {
@@ -58,20 +56,20 @@ export default function Navbar() {
     const registerJsonResponse = await registerResponse.json();
     if (registerResponse.ok) {
       alert("User registered successfully!");
-      setUsersCount(usersCount+1);
+      setUsersCount(usersCount + 1);
     } else {
       setErrorMessage(registerJsonResponse.error || "Error during registration");
     }
   };
 
-  // Automatically check if user exists when publicKey changes
-  useEffect(()=>{
-      if (publicKey && !walletAddress) {
-        const address = publicKey.toString();
-        setWalletAddress(address);
-        checkUserExists(address);
-      }
-  },[publicKey])
+  // Automatically check if user exists when publicKey or walletAddress changes
+  useEffect(() => {
+    if (publicKey && !walletAddress) {
+      const address = publicKey.toString();
+      setWalletAddress(address);
+      checkUserExists(address);
+    }
+  }, [publicKey, walletAddress, checkUserExists]);
 
   return (
     <nav style={{ backgroundColor: colors.background }} className="pt-1 px-4 flex justify-between items-center">
@@ -91,3 +89,101 @@ export default function Navbar() {
     </nav>
   );
 }
+
+
+
+
+
+// // components/Navbar.tsx
+// "use client";
+
+// import { useEffect, useState } from "react";
+// import { useWallet } from "@solana/wallet-adapter-react";
+// import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
+// import "@solana/wallet-adapter-react-ui/styles.css";
+// import NameModal from "./NameModal";
+// import { useRecoilState, useSetRecoilState } from "recoil";
+// import { userCount, userState } from "@/store/userState";
+// import Link from "next/link";
+
+// const colors = {
+//   background: "#121212",
+//   text: "#E0E0E0",
+//   button: "#4A90E2",
+//   buttonHover: "#6AB7E4",
+// };
+
+// // export default function Navbar({ onCreateMissionClick }: NavbarProps) {
+// export default function Navbar() {
+//   const { publicKey } = useWallet();
+//   const [errorMessage, setErrorMessage] = useState("");
+//   const [isModalOpen, setIsModalOpen] = useState(false);
+//   const [walletAddress, setWalletAddress] = useState("");
+//   const setUser=useSetRecoilState(userState);
+//   const [usersCount,setUsersCount]=useRecoilState(userCount);
+
+//   async function checkUserExists(walletAddress: string) {
+//     const response = await fetch("/api/users/login", {
+//       method: "POST",
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//       body: JSON.stringify({ walletAddress }),
+//     });
+//     const jsonResponse = await response.json();
+//     if (jsonResponse.user) {
+//         setUser(jsonResponse.user);
+//     }
+//     console.log("response: ", jsonResponse);
+
+//     if (!response.ok) {
+//       // User not found, show modal to enter name
+//       setIsModalOpen(true);
+//     }
+//   }
+
+//   const handleRegister = async (name: string) => {
+//     const registerResponse = await fetch("/api/users/register", {
+//       method: "POST",
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//       body: JSON.stringify({ walletAddress, name }),
+//     });
+
+//     const registerJsonResponse = await registerResponse.json();
+//     if (registerResponse.ok) {
+//       alert("User registered successfully!");
+//       setUsersCount(usersCount+1);
+//     } else {
+//       setErrorMessage(registerJsonResponse.error || "Error during registration");
+//     }
+//   };
+
+//   // Automatically check if user exists when publicKey changes
+//   useEffect(()=>{
+//       if (publicKey && !walletAddress) {
+//         const address = publicKey.toString();
+//         setWalletAddress(address);
+//         checkUserExists(address);
+//       }
+//   },[publicKey])
+
+//   return (
+//     <nav style={{ backgroundColor: colors.background }} className="pt-1 px-4 flex justify-between items-center">
+//       <Link href="/" className="text-3xl font-bold">
+//         <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 animate-pulse">Cudis Missions</span>
+//       </Link>
+
+//       <div className="flex items-center">
+//         <WalletMultiButton />
+//       </div>
+
+//       {/* Error Message */}
+//       {errorMessage && <p className="text-red-500">{errorMessage}</p>}
+
+//       {/* Modal for entering user name */}
+//       <NameModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} onSubmit={handleRegister} />
+//     </nav>
+//   );
+// }

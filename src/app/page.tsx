@@ -79,7 +79,6 @@ const HomePage = () => {
         }else{
           setNftType("expert")
         }
-        // (steps<=1000?setNftType("beginner"):(steps<=5000?setNftType("intermediate"):setNftType("expert")));
         // Refresh leaderboard
         const leaderboardRes = await fetch("/api/users/leaderboard");
         const leaderboardData = await leaderboardRes.json();
@@ -92,7 +91,6 @@ const HomePage = () => {
           alert("Record already entered for the day. Come Tomorrow!!");
           return;
         }
-                // console.log('r',response);
         alert("Failed to update progress. Please try again.");
       }
     } catch (error) {
