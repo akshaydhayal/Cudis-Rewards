@@ -74,7 +74,7 @@ export default function Navbar() {
   return (
     <nav style={{ backgroundColor: colors.background }} className="pt-1 px-4 flex justify-between items-center">
       <Link href="/" className="text-3xl font-bold">
-        <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 animate-pulse">Cudis Missions</span>
+        <span className="bg-clip-text text-transparent bg-gradient-to-r from-green-400 via-pink-500 to-green-500 animate-pulse">Cudis Rewards</span>
       </Link>
 
       <div className="flex items-center">
