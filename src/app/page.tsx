@@ -25,23 +25,24 @@ const HomePage = () => {
 
   console.log("userInfo: ",userInfo);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      setIsLoading(true);
-      try {
-        const leaderboardRes = await fetch("/api/users/leaderboard");
-        const leaderboardData = await leaderboardRes.json();
+  const fetchData = async () => {
+    setIsLoading(true);
+    try {
+      const leaderboardRes = await fetch("/api/users/leaderboard");
+      const leaderboardData = await leaderboardRes.json();
 
-        // Sort leaderboard data by points in descending order
-        //@ts-expect-error  ignore
-        const sortedLeaderboard = leaderboardData.sort((a, b) => b.points - a.points);
-        setLeaderboard(sortedLeaderboard);
-      } catch (error) {
-        console.error("Failed to fetch data:", error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
+      // Sort leaderboard data by points in descending order
+      //@ts-expect-error  ignore
+      const sortedLeaderboard = leaderboardData.sort((a, b) => b.points - a.points);
+      setLeaderboard(sortedLeaderboard);
+    } catch (error) {
+      console.error("Failed to fetch data:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+  
+  useEffect(() => {
     fetchData();
   }, [usersCount]);
 
@@ -79,12 +80,13 @@ const HomePage = () => {
         }else{
           setNftType("expert")
         }
+        fetchData();
         // Refresh leaderboard
-        const leaderboardRes = await fetch("/api/users/leaderboard");
-        const leaderboardData = await leaderboardRes.json();
-        //@ts-expect-error  ignore
-        const sortedLeaderboard = leaderboardData.sort((a, b) => b.points - a.points);
-        setLeaderboard(sortedLeaderboard);
+        // const leaderboardRes = await fetch("/api/users/leaderboard");
+        // const leaderboardData = await leaderboardRes.json();
+        // //@ts-expect-error  ignore
+        // const sortedLeaderboard = leaderboardData.sort((a, b) => b.points - a.points);
+        // setLeaderboard(sortedLeaderboard);
       } else {
         console.log('r',response);
         if(response.status==409){
