@@ -19,6 +19,9 @@ const HomePage = () => {
   const userInfo = useRecoilValue(userState);
   const usersCount = useRecoilValue(userCount);
   const [nftMintStatus, setNftMintStatus] = useState(false);
+  const [showMint, setShowMint] = useState(false);
+  const [nftType,setNftType]=useState<null | string>(null);
+
 
   console.log("userInfo: ",userInfo);
 
@@ -65,7 +68,18 @@ const HomePage = () => {
       });
       if (response.ok) {
         alert("Progress updated successfully!");
+        setShowMint(true);
         setStepsWalked("");
+        const steps=parseInt(stepsWalked);
+        
+        if(steps<=1000){
+          setNftType("beginner");
+        }else if(steps<=5000){
+          setNftType("intermediate")
+        }else{
+          setNftType("expert")
+        }
+        // (steps<=1000?setNftType("beginner"):(steps<=5000?setNftType("intermediate"):setNftType("expert")));
         // Refresh leaderboard
         const leaderboardRes = await fetch("/api/users/leaderboard");
         const leaderboardData = await leaderboardRes.json();
@@ -73,6 +87,12 @@ const HomePage = () => {
         const sortedLeaderboard = leaderboardData.sort((a, b) => b.points - a.points);
         setLeaderboard(sortedLeaderboard);
       } else {
+        console.log('r',response);
+        if(response.status==409){
+          alert("Record already entered for the day. Come Tomorrow!!");
+          return;
+        }
+                // console.log('r',response);
         alert("Failed to update progress. Please try again.");
       }
     } catch (error) {
@@ -139,21 +159,30 @@ const HomePage = () => {
               <Button type="submit" className="w-full bg-blue-600 hover:bg-blue-700">
                 Update Progress
               </Button>
-              <button
-                className="mt-6 w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 
+            </form>
+              {showMint && <Button
+                className="mt-6 w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-1 
         px-4 rounded"
                 onClick={() => {
-                  // handleClick();
-                  createAsset(wallet, "beginner",setNftMintStatus);
+                  createAsset(wallet, nftType,setNftMintStatus,setShowMint);
                   // createAsset(wallet, 'beginner', setNftMintStatus);
                 }}
               >
                 Mint your NFT badge!!
-              </button>
-            </form>
+              </Button>}
+              {nftMintStatus && <Button disabled
+                className="mt-6 w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-1 
+        px-4 rounded" 
+                onClick={() => {
+                  createAsset(wallet, nftType,setNftMintStatus,setShowMint);
+                  // createAsset(wallet, 'beginner', setNftMintStatus);
+                }}
+              >
+                Minted Daily Progress NFT!!
+              </Button>}
           </CardContent>
         </Card>
-        {nftMintStatus && <NftModal trackName="beginner" setNftMintStatus={setNftMintStatus}  />}
+        {nftMintStatus && <NftModal trackName={nftType} setNftMintStatus={setNftMintStatus}  />}
 
         <Card className="bg-gray-800 border-gray-700">
           <CardHeader>

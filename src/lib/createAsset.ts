@@ -7,7 +7,7 @@ import { assetMetadataUri } from "./assetMetaData";
 
 // export async function createAsset(wallet:any, nftName,setNftMintStatus) {
 //@ts-expect-error ignore
-export async function createAsset(wallet, nftName, setNftMintStatus) {
+export async function createAsset(wallet, nftName, setNftMintStatus,setShowMint) {
   if (!wallet) {
     await wallet.connect();
   }
@@ -36,6 +36,7 @@ export async function createAsset(wallet, nftName, setNftMintStatus) {
       skipDerivePlugins: false,
     });
     setNftMintStatus(true);
+    setShowMint(false);
 
     console.log("fetched asset details : ", assetdetails);
   } catch (error) {

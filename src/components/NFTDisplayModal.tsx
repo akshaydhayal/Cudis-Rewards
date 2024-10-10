@@ -26,26 +26,27 @@ const NftModal = ({setNftMintStatus, trackName }) => {
         ) : (
           <>
             <h2 className="text-2xl font-bold text-gray-800 mb-4">Congrats!! You got an NFT</h2>
-            <div className="bg-gray-100 rounded-lg shadow-md w-[250px] h-[320px] flex flex-col items-center mb-6">
+            <div className="bg-gray-100 rounded-lg shadow-md w-[305px] h-[350px] flex flex-col items-center mb-6">
               <div className="w-full h-1/2 bg-gradient-to-br from-purple-500 to-blue-500 rounded-t-lg relative">
                 <img
-                  src={trackName == "beginner" ? "/beginner.png" : trackName == "medium" ? "/medium.png" : "/expert.png"}
+                  src={trackName == "beginner" ? "/beginner.png" : trackName == "intermediate" ? "/medium.png" : "/expert.png"}
                   alt="NFT Profile"
                   className="w-full h-full object-cover rounded-t-lg"
                 />
                 {/* <img src="/solana.png" alt="NFT Profile" className="w-full h-full object-cover rounded-t-lg" /> */}
               </div>
               {/* <p className="text-center text-gray-800 font-semibold mt-2">Doodle #8978</p> */}
-              <p className="text-center text-gray-800 font-semibold mt-2">{trackName} NFT</p>
+              {/* <p className="text-center text-gray-800 font-semibold mt-2">Cudis {trackName} NFT</p> */}
+              <p className="text-center text-gray-800 font-semibold mt-2">Cudis {trackName=='beginner'?"Beginner":(trackName=='intermediate'?"Intermediate":"Expert")} NFT</p>
               <div className="p-3 flex flex-col items-center w-full">
                 <p className="text-center text-gray-700 mb-3 text-sm">
-                  Congratulations on completing the quest of {trackName}. ! This NFT represents your achievement.
+                  Congratulations on completing the Cudis {trackName} Level! This NFT represents your achievement.
                 </p>
                 <div className="flex justify-center gap-1 items-center">
                   <p className="text-slate-700 font-semibold text-sm">Traits :</p>
-                  <div className="border border-gray-700 rounded p-1 px-2 text-xs text-gray-700">Epic</div>
-                  <div className="border border-gray-700 rounded p-1 px-2 text-xs text-gray-700">Blue</div>
-                  <div className="border border-gray-700 rounded p-1 px-2 text-xs text-gray-700">NFT</div>
+                  <div className="border border-gray-700 rounded p-1 px-2 text-xs text-gray-700">{trackName=='beginner'?"Beginner":(trackName=='intermediate'?"Intermediate":"Expert")}</div>
+                  <div className="border border-gray-700 rounded p-1 px-2 text-xs text-gray-700">{trackName=='beginner'?"1000 Steps":(trackName=='intermediate'?"5000 Steps":"10000 Steps")}</div>
+                  <div className="border border-gray-700 rounded p-1 px-2 text-xs text-gray-700">{trackName=='beginner'?"Walking":(trackName=='intermediate'?"Jogging":"Sprint")}</div>
                 </div>
               </div>
             </div>
