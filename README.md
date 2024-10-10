@@ -1,36 +1,39 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# CuDiFit: Get Fit, Earn Rewards
 
-## Getting Started
+Live Project Link: [https://cudis-rewards.vercel.app/](https://cudis-rewards.vercel.app/)
 
-First, run the development server:
+## Description
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+CuDiFit is a fitness-driven platform that combines physical activity with the excitement of earning rewards. Track your daily steps, log your progress, and climb the leaderboard to showcase your fitness journey. As users meet daily fitness goals, they earn points based on their steps, unlocking exclusive NFT badges as a reward for their dedication. With a live leaderboard, users can see how they stack up against others in the community, motivating friendly competition.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Users connect their Solana wallet to track their progress, log steps, and mint unique NFTs based on their activity levels. Whether you’re a beginner or an expert, CuDiFit offers a fun and interactive way to stay active while earning digital collectibles that reflect your progress.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-## Learn More
 
-To learn more about Next.js, take a look at the following resources:
+## Features
+- **Step Tracking:**  Log daily steps to earn points and NFTs.
+- **NFT Badges:**  Receive exclusive NFT badges for fitness achievements (beginner, intermediate, and expert).
+- **Live Leaderboard:** See where you rank in the community based on your total points.
+- **Real-Time Progress:**  Track daily progress with interactive charts and analytics.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Website Demo
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+![Mission Dashboard](https://github.com/akshaydhayal/Cudis-Rewards/blob/main/cudis-rewards-vercel-app.png)
 
-## Deploy on Vercel
+*Figure 1: User's Weekly Dashboard with LeaderBoard*
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+![Mission Dashboard](https://github.com/akshaydhayal/Cudis-Rewards/blob/main/nftt.png)
+*Figure 2: Minted NFT Rewards after a Recording Steps*
+
+
+
+## Video Demo:
+[https://www.loom.com/share/868a90034729494ba983df301689e6b7?sid=29045e71-7063-482c-888c-4ea1fcacfe06](https://www.loom.com/share/b2c1269a5dcd4efebc9612c7a17dab54)
+
+## Technologies Used
+
+- **Frontend**: Next.js, React,  Tailwind CSS, Lucide Icons
+- **Backend**: Next.js
+  
