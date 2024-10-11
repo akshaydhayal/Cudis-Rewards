@@ -61,7 +61,16 @@ export async function GET(request: NextRequest) {
       nftsReceived: user.nftsReceived,
     };
 
-    return NextResponse.json(userProgress);
+    const LeaderboardUsers = await UserModel.find({}, "name totalPoints walletAddress").sort({ points: -1 }).limit(10); // Limit to top 10 users for performance, adjust as needed
+    const LeaderboardUsersData = LeaderboardUsers.map((user) => ({
+      name: user.name,
+      points: user.totalPoints,
+      walletAddress: user.walletAddress,
+    }));
+
+
+    // return NextResponse.json(userProgress);
+    return NextResponse.json({userProgress,LeaderboardUsersData});
   } catch (error) {
     console.error('Error fetching user data:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });

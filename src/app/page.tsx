@@ -75,7 +75,8 @@ const HomePage = () => {
         const userProgressRes = await fetch(`/api/users?walletAddress=${userInfo.walletAddress}`);
         if (userProgressRes.ok) {
           const userProgressData = await userProgressRes.json();
-          setUserProgress(userProgressData);
+          // setUserProgress(userProgressData);
+          setUserProgress(userProgressData.userProgress);
         } else {
           console.error('Failed to fetch user progress');
         }
