@@ -48,7 +48,12 @@ const HomePage = () => {
   const fetchData = async () => {
     setIsLoading(true);
     try {
-      console.log("leaderboard fetch fn called!!");
+      console.log("leaderboard fetch fn called!!");              
+      const helloRes = await fetch(`/api/users/hello`);
+      console.log("hello Api Response : ",helloRes);
+      const helloApiData=await helloRes.json();
+      console.log("hello Api Response Data : ",helloApiData);
+      
       const leaderboardRes = await fetch("/api/users/leaderboard",{
         method:"GET",
         cache: 'no-store',
@@ -56,6 +61,7 @@ const HomePage = () => {
         'Cache-Control': 'no-cache',
         }
       });
+      console.log("leaderBoardResponse",leaderboardRes);
       const leaderboardData = await leaderboardRes.json();
       console.log("leaderBoardData",leaderboardData);
       //@ts-expect-error ignore
