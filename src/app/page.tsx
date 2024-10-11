@@ -53,12 +53,12 @@ const HomePage = () => {
       console.log("hello Api Response : ",helloRes);
       const helloApiData=await helloRes.json();
       console.log("hello Api Response Data : ",helloApiData);
-
+      
       const leaderboardRes = await fetch("/api/users/leaderboard",{
         method:"GET",
         cache: 'no-store',
         headers: {
-        'Cache-Control': 'no-cache',
+          'Cache-Control': 'no-cache',
         }
       });
       console.log("leaderBoardResponse",leaderboardRes);
@@ -68,7 +68,7 @@ const HomePage = () => {
       const sortedLeaderboard = leaderboardData.sort((a, b) => b.points - a.points);
       setLeaderboard(sortedLeaderboard);
       console.log("sorted leaderBoardData",sortedLeaderboard);
-
+      
       //@ts-expect-error ignore
       if (userInfo?.walletAddress) {
         //@ts-expect-error ignore
@@ -91,7 +91,26 @@ const HomePage = () => {
     fetchData();
     //@ts-expect-error ignore
   }, [usersCount, userInfo?.walletAddress]);
+  
+  async function callHelloApi(){
+    console.log("helloApi called");
+    const helloRes = await fetch(`/api/users/hello`);
+    console.log("hello Api Response in callHello : ",helloRes);
+    const helloApiData=await helloRes.json();
+    console.log("hello Api Response Data in callHello : ",helloApiData);
 
+    const leaderboardRes = await fetch("/api/users/leaderboard",{
+      method:"GET",
+      cache: 'no-store',
+      headers: {
+        'Cache-Control': 'no-cache',
+      }
+    });
+    console.log("leaderBoardResponse in callHello",leaderboardRes);
+    const leaderboardData = await leaderboardRes.json();
+    console.log("leaderBoardData in callHello",leaderboardData);
+  }
+  callHelloApi();
   //@ts-expect-error ignore
   const handleProgressSubmit = async (e) => {
     e.preventDefault();
