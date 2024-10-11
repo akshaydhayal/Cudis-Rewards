@@ -53,7 +53,7 @@ const HomePage = () => {
       console.log("hello Api Response : ",helloRes);
       const helloApiData=await helloRes.json();
       console.log("hello Api Response Data : ",helloApiData);
-      
+
       const leaderboardRes = await fetch("/api/users/leaderboard",{
         method:"GET",
         cache: 'no-store',
@@ -126,7 +126,7 @@ const HomePage = () => {
         }else{
           setNftType("expert")
         }
-        fetchData();
+        await fetchData();
       } else {
         console.log('r',response);
         if(response.status==409){
