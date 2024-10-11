@@ -77,6 +77,7 @@ const HomePage = () => {
           const userProgressData = await userProgressRes.json();
           // setUserProgress(userProgressData);
           setUserProgress(userProgressData.userProgress);
+          setLeaderboard(userProgressData.LeaderboardUsersData);
         } else {
           console.error('Failed to fetch user progress');
         }

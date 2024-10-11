@@ -13,13 +13,13 @@ import dbConnect from "@/lib/dbConnect"; // Ensure you have a function to connec
 //   { threshold: 10000, name: "10K Points Badge", image: "/nft-images/10k-points.png" },
 // ];
 const NFT_AWARDS = [
-  { threshold: 1000, name: "10K Steps Badge", image: "https://png.pngtree.com/element_pic/00/16/07/18578cd65e6ecaa.jpg" },
-  { threshold: 5000, name: "50K Steps Badge", image: "https://png.pngtree.com/element_pic/00/16/07/18578cd65e6ecaa.jpg" },
-  { threshold: 10000, name: "100K Steps Badge", image: "https://png.pngtree.com/element_pic/00/16/07/18578cd65e6ecaa.jpg" },
-  { threshold: 100, name: "1K Points Badge", image: "https://png.pngtree.com/element_pic/00/16/07/18578cd65e6ecaa.jpg" },
-  { threshold: 500, name: "5K Points Badge", image: "https://png.pngtree.com/element_pic/00/16/07/18578cd65e6ecaa.jpg" },
-  { threshold: 1000, name: "10K Points Badge", image: "https://png.pngtree.com/element_pic/00/16/07/18578cd65e6ecaa.jpg" },
-];
+  { threshold: 1000, name: "1000 Steps Badge", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTntsaC3vVxujspDNEQjFUqpITcFUODgfeM7G719bZMJGrKz8r15MZcrPrybbARX6n8dEI&usqp=CAU" },
+  { threshold: 5000, name: "5000 Steps Badge", image: "https://media.hdor.com/wp-content/uploads/2022/12/5k.jpg" },
+  { threshold: 10000, name: "10000 Steps Badge", image: "https://cdn2.iconfinder.com/data/icons/gamification-badges-1/300/foot_1000-512.png" },
+  { threshold: 20000, name: "20K Steps Badge", image: "https://play-lh.googleusercontent.com/36lOMcm2KYZzQugFt7DcoJTxLdEWD-0IhBndCF2TvqJtkuZk3kFvBV4A3BtLnU9Q-qoy=w240-h480-rw" },
+  { threshold: 50000, name: "50K Steps Badge", image: "https://png.pngtree.com/element_pic/00/16/07/18578cd65e6ecaa.jpg" },
+  { threshold: 100000, name: "100K Steps Badge", image: "https://png.pngtree.com/element_pic/00/16/07/18578cd65e6ecaa.jpg" },
+  ];
 
 export async function POST(req: NextRequest) {
   try {
