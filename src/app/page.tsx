@@ -49,7 +49,13 @@ const HomePage = () => {
     setIsLoading(true);
     try {
       console.log("leaderboard fetch fn called!!");
-      const leaderboardRes = await fetch("/api/users/leaderboard");
+      const leaderboardRes = await fetch("/api/users/leaderboard",{
+        method:"GET",
+        cache: 'no-store',
+        headers: {
+        'Cache-Control': 'no-cache',
+        }
+      });
       const leaderboardData = await leaderboardRes.json();
       console.log("leaderBoardData",leaderboardData);
       //@ts-expect-error ignore
@@ -180,7 +186,7 @@ const HomePage = () => {
               ) : userProgress ? (
                 <div className="space-y-4">
                   <div className="flex justify-between items-center">
-                    <h3 className="text-lg font-semibold text-gray-200">{userProgress.name}</h3>
+                    <h3 className="text-base font-medium text-gray-400 pl-6">Name : {userProgress.name}</h3>
                     <div className="flex space-x-6">
                       <div className="flex items-center">
                         <Footprints className="w-4 h-4 mr-1 text-blue-400" />

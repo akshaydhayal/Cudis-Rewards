@@ -16,7 +16,12 @@ export async function GET() {
       walletAddress: user.walletAddress,
     }));
 
-    return NextResponse.json(leaderboardData);
+    // return NextResponse.json(leaderboardData);
+    return NextResponse.json(leaderboardData, {
+      headers: {
+        'Cache-Control': 'no-store, max-age=0',
+      },
+    });
   } catch (error) {
     console.error("Failed to fetch leaderboard data:", error);
     return NextResponse.json({ error: "Failed to fetch leaderboard data" }, { status: 500 });
