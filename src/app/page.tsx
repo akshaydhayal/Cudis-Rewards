@@ -278,7 +278,8 @@ const HomePage = () => {
                     <div className="grid grid-cols-4 gap-2">
                       {userProgress.nftsReceived.map((nft, index) => (
                         <div key={index} className="text-center">
-                          <img src={nft.image} alt={nft.name} className="w-12 h-12 mx-auto mb-1 rounded-full" />
+                          <img src={nft.image} alt={nft.name} className="w-20 h-20 mx-auto mb-1 rounded-full" />
+                          {/* <img src="./20000.png" alt={nft.name} className="w-20 h-20 mx-auto mb-1 rounded-full" /> */}
                           <p className="text-xs text-gray-400">{nft.name}</p>
                         </div>
                       ))}
