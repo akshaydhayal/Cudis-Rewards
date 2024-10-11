@@ -48,11 +48,11 @@ const HomePage = () => {
   const fetchData = async () => {
     setIsLoading(true);
     try {
-      console.log("leaderboard fetch fn called!!");              
-      const helloRes = await fetch(`/api/users/hello`);
-      console.log("hello Api Response : ",helloRes);
-      const helloApiData=await helloRes.json();
-      console.log("hello Api Response Data : ",helloApiData);
+      // console.log("leaderboard fetch fn called!!");              
+      // const helloRes = await fetch(`/api/users/hello`);
+      // console.log("hello Api Response : ",helloRes);
+      // const helloApiData=await helloRes.json();
+      // console.log("hello Api Response Data : ",helloApiData);
       
       const leaderboardRes = await fetch("/api/users/leaderboard",{
         method:"GET",
@@ -61,13 +61,13 @@ const HomePage = () => {
           'Cache-Control': 'no-cache',
         }
       });
-      console.log("leaderBoardResponse",leaderboardRes);
+      // console.log("leaderBoardResponse",leaderboardRes);
       const leaderboardData = await leaderboardRes.json();
-      console.log("leaderBoardData",leaderboardData);
+      // console.log("leaderBoardData",leaderboardData);
       //@ts-expect-error ignore
       const sortedLeaderboard = leaderboardData.sort((a, b) => b.points - a.points);
-      setLeaderboard(sortedLeaderboard);
-      console.log("sorted leaderBoardData",sortedLeaderboard);
+      console.log("sorted leaderBoardData1",sortedLeaderboard);
+      // setLeaderboard(sortedLeaderboard);
       
       //@ts-expect-error ignore
       if (userInfo?.walletAddress) {
@@ -75,14 +75,29 @@ const HomePage = () => {
         const userProgressRes = await fetch(`/api/users?walletAddress=${userInfo.walletAddress}`);
         if (userProgressRes.ok) {
           const userProgressData = await userProgressRes.json();
+          console.log("whole user Data : ",userProgressData);
           // setUserProgress(userProgressData);
           //@ts-expect-error ignore
           const sortedLeaderboardUsersData = userProgressData.LeaderboardUsersData.sort((a, b) => b.points - a.points);
-
+          console.log("sorted leaderborad2 corret: ",sortedLeaderboardUsersData);
           setUserProgress(userProgressData.userProgress);
           setLeaderboard(sortedLeaderboardUsersData);
         } else {
           console.error('Failed to fetch user progress');
+        }
+      }else{
+        const userProgressRes = await fetch(`/api/users?walletAddress=Ec1dut2RP162WKZ1etv9YTDeeesNqSoseGX7uu9JCm5u`);
+        if (userProgressRes.ok) {
+          const userProgressData = await userProgressRes.json();
+          console.log("whole user Data : ", userProgressData);
+          // setUserProgress(userProgressData);
+          //@ts-expect-error ignore
+          const sortedLeaderboardUsersData = userProgressData.LeaderboardUsersData.sort((a, b) => b.points - a.points);
+          console.log("sorted leaderborad2 corret: ", sortedLeaderboardUsersData);
+          // setUserProgress(userProgressData.userProgress);
+          setLeaderboard(sortedLeaderboardUsersData);
+        } else {
+          console.error("Failed to fetch Leaderboard");
         }
       }
     } catch (error) {
@@ -97,29 +112,10 @@ const HomePage = () => {
     //@ts-expect-error ignore
   }, [usersCount, userInfo?.walletAddress]);
   
-  async function callHelloApi(){
-    console.log("helloApi called");
-    const helloRes = await fetch(`/api/users/hello`);
-    console.log("hello Api Response in callHello : ",helloRes);
-    const helloApiData=await helloRes.json();
-    console.log("hello Api Response Data in callHello : ",helloApiData);
-
-    const leaderboardRes = await fetch("/api/users/leaderboard",{
-      method:"GET",
-      cache: 'no-store',
-      headers: {
-        'Cache-Control': 'no-cache',
-      }
-    });
-    console.log("leaderBoardResponse in callHello",leaderboardRes);
-    const leaderboardData = await leaderboardRes.json();
-    console.log("leaderBoardData in callHello",leaderboardData);
-  }
-  callHelloApi();
   //@ts-expect-error ignore
   const handleProgressSubmit = async (e) => {
     e.preventDefault();
-    //@ts-expect-error  ignore
+    //@ts-expect-error ignore
     if (!userInfo.walletAddress) {
       alert("Connect your Wallet first to record Daily Progress");
       return;
@@ -193,9 +189,11 @@ const HomePage = () => {
     }
   };
 
+  console.log('isLoading : ',isLoading);
+  console.log("userProgress : ", userProgress);
+  console.log("userInfo : ", userInfo);
 
   return (
-
     <div className="min-h-screen bg-gray-900 text-gray-100 p-4 md:p-8">
       <div className="flex flex-col lg:flex-row gap-6">
         {/* Left Column: User Progress (60% width) */}
@@ -230,47 +228,24 @@ const HomePage = () => {
                   </div>
                   <ResponsiveContainer width="100%" height={300}>
                     <LineChart data={userProgress.dailyProgress}>
-                      <XAxis 
-                        dataKey="date" 
-                        stroke="#718096" 
-                        tick={{fill: '#718096'}}
+                      <XAxis dataKey="date" stroke="#718096" tick={{ fill: "#718096" }} />
+                      <YAxis
+                        yAxisId="left"
+                        stroke="#4299E1"
+                        tick={{ fill: "#4299E1" }}
+                        label={{ value: "Steps", angle: -90, position: "insideLeft", fill: "#4299E1" }}
                       />
-                      <YAxis 
-                        yAxisId="left" 
-                        stroke="#4299E1" 
-                        tick={{fill: '#4299E1'}}
-                        label={{ value: 'Steps', angle: -90, position: 'insideLeft', fill: '#4299E1' }}
+                      <YAxis
+                        yAxisId="right"
+                        orientation="right"
+                        stroke="#F6E05E"
+                        tick={{ fill: "#F6E05E" }}
+                        label={{ value: "Points", angle: 90, position: "insideRight", fill: "#F6E05E" }}
                       />
-                      <YAxis 
-                        yAxisId="right" 
-                        orientation="right" 
-                        stroke="#F6E05E" 
-                        tick={{fill: '#F6E05E'}}
-                        label={{ value: 'Points', angle: 90, position: 'insideRight', fill: '#F6E05E' }}
-                      />
-                      <Tooltip 
-                        contentStyle={{ backgroundColor: '#2D3748', border: 'none', color: '#E2E8F0' }} 
-                        itemStyle={{ color: '#E2E8F0' }}
-                      />
-                      <Legend 
-                        wrapperStyle={{ color: '#E2E8F0' }}
-                      />
-                      <Line 
-                        yAxisId="left" 
-                        type="monotone" 
-                        dataKey="stepsWalked" 
-                        stroke="#4299E1" 
-                        name="Steps" 
-                        dot={false}
-                      />
-                      <Line 
-                        yAxisId="right" 
-                        type="monotone" 
-                        dataKey="dailyPoints" 
-                        stroke="#F6E05E" 
-                        name="Points" 
-                        dot={false}
-                      />
+                      <Tooltip contentStyle={{ backgroundColor: "#2D3748", border: "none", color: "#E2E8F0" }} itemStyle={{ color: "#E2E8F0" }} />
+                      <Legend wrapperStyle={{ color: "#E2E8F0" }} />
+                      <Line yAxisId="left" type="monotone" dataKey="stepsWalked" stroke="#4299E1" name="Steps" dot={false} />
+                      <Line yAxisId="right" type="monotone" dataKey="dailyPoints" stroke="#F6E05E" name="Points" dot={false} />
                     </LineChart>
                   </ResponsiveContainer>
                   <div>
@@ -331,10 +306,7 @@ const HomePage = () => {
                 </Button>
               )}
               {nftMintStatus && (
-                <Button
-                  disabled
-                  className="mt-4 w-full bg-gray-600 text-white font-bold py-2 px-4 rounded"
-                >
+                <Button disabled className="mt-4 w-full bg-gray-600 text-white font-bold py-2 px-4 rounded">
                   NFT Minted Successfully!
                 </Button>
               )}
@@ -361,9 +333,7 @@ const HomePage = () => {
                     //@ts-expect-error ignore
                     <div key={user.walletAddress} className="flex items-center justify-between bg-gray-700 p-3 rounded-lg">
                       <span className="flex items-center">
-                        <span className={`text-lg font-semibold mr-2 ${getRankColor(index)}`}>
-                          {getRankIcon(index) || `${index + 1}.`}
-                        </span>
+                        <span className={`text-lg font-semibold mr-2 ${getRankColor(index)}`}>{getRankIcon(index) || `${index + 1}.`}</span>
                         {/* @ts-expect-error ignore */}
                         <span className="text-gray-300 ml-2 truncate">{user.name}</span>
                       </span>
@@ -381,8 +351,6 @@ const HomePage = () => {
       </div>
       {nftMintStatus && <NftModal trackName={nftType} setNftMintStatus={setNftMintStatus} />}
     </div>
-
-
   );
 };
 

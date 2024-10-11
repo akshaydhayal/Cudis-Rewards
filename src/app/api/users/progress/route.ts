@@ -64,6 +64,7 @@ export async function POST(req: NextRequest) {
   const newNFTs = [];
   NFT_AWARDS.forEach((award) => {
       if (
+        (award.name.includes("Expert") && totalSteps >= award.threshold) ||
         (award.name.includes("Steps") && totalSteps >= award.threshold) ||
         (award.name.includes("Points") && user.totalPoints >= award.threshold)
       ) {

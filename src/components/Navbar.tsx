@@ -43,7 +43,7 @@ export default function Navbar() {
       setIsModalOpen(true);
     }
   }, [setUser]);
-
+  
   const handleRegister = async (name: string) => {
     const registerResponse = await fetch("/api/users/register", {
       method: "POST",
@@ -52,11 +52,14 @@ export default function Navbar() {
       },
       body: JSON.stringify({ walletAddress, name }),
     });
-
+    
     const registerJsonResponse = await registerResponse.json();
+    console.log("registerResponse : ",registerJsonResponse);
+    
     if (registerResponse.ok) {
       alert("User registered successfully!");
       setUsersCount(usersCount + 1);
+      setUser(registerJsonResponse.user);
     } else {
       setErrorMessage(registerJsonResponse.error || "Error during registration");
     }

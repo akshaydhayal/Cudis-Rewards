@@ -12,13 +12,13 @@ export async function POST(req:NextRequest) {
         const existingUser = await User.findOne({ walletAddress });
         if (existingUser) {
             return new Response(JSON.stringify({ error: "User already registered" }), { status: 400 });
-            }
+        }
         
         // Create new user
         const newUser = new User({ walletAddress, name });
         await newUser.save();
         
-        return new Response(JSON.stringify({ message: "User registered successfully" }), { status: 201 });
+        return new Response(JSON.stringify({ message: "User registered successfully",user:newUser }), { status: 201 });
     }catch(err){
         console.log("err in register user : ",err);
         return new Response(JSON.stringify({ message: "Err",err:err }), { status: 501 });
