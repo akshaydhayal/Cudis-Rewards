@@ -249,13 +249,13 @@ const HomePage = () => {
                     </LineChart>
                   </ResponsiveContainer>
                   <div>
-                    <h4 className="text-md font-semibold mb-2 text-gray-300">NFT Badges</h4>
-                    <div className="grid grid-cols-4 gap-2">
+                    <h4 className="text-md font-semibold mb-2 text-gray-300">Achievements (Badges)</h4>
+                    <div className="grid grid-cols-5 gap-2">
                       {userProgress.nftsReceived.map((nft, index) => (
                         <div key={index} className="text-center">
                           <img src={nft.image} alt={nft.name} className="w-20 h-20 mx-auto mb-1 rounded-full" />
                           {/* <img src="./20000.png" alt={nft.name} className="w-20 h-20 mx-auto mb-1 rounded-full" /> */}
-                          <p className="text-xs text-gray-400">{nft.name}</p>
+                          <p className="text-xs text-gray-300">{nft.name}</p>
                         </div>
                       ))}
                     </div>
@@ -281,7 +281,7 @@ const HomePage = () => {
               <form onSubmit={handleProgressSubmit} className="space-y-4">
                 <div>
                   <label htmlFor="steps" className="block text-sm font-medium text-gray-300 mb-1">
-                    Steps walked today
+                    Steps walked today (check Cudis Ring)
                   </label>
                   <Input
                     id="steps"
