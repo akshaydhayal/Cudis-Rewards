@@ -76,8 +76,11 @@ const HomePage = () => {
         if (userProgressRes.ok) {
           const userProgressData = await userProgressRes.json();
           // setUserProgress(userProgressData);
+          //@ts-expect-error ignore
+          const sortedLeaderboardUsersData = userProgressData.LeaderboardUsersData.sort((a, b) => b.points - a.points);
+
           setUserProgress(userProgressData.userProgress);
-          setLeaderboard(userProgressData.LeaderboardUsersData);
+          setLeaderboard(sortedLeaderboardUsersData);
         } else {
           console.error('Failed to fetch user progress');
         }
