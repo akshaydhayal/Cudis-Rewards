@@ -48,11 +48,14 @@ const HomePage = () => {
   const fetchData = async () => {
     setIsLoading(true);
     try {
+      console.log("leaderboard fetch fn called!!");
       const leaderboardRes = await fetch("/api/users/leaderboard");
       const leaderboardData = await leaderboardRes.json();
+      console.log("leaderBoardData",leaderboardData);
       //@ts-expect-error ignore
       const sortedLeaderboard = leaderboardData.sort((a, b) => b.points - a.points);
       setLeaderboard(sortedLeaderboard);
+      console.log("sorted leaderBoardData",sortedLeaderboard);
 
       //@ts-expect-error ignore
       if (userInfo?.walletAddress) {
@@ -166,6 +169,10 @@ const HomePage = () => {
               <CardTitle className="text-xl font-bold text-blue-400 flex items-center">
                 <User className="mr-2" /> User Progress
               </CardTitle>
+              {/* <CardTitle className="text-xl font-bold text-blue-400 flex justify-between items-center">
+                <div className='flex items-center'><User className="mr-2" /> User Progress</div>
+                <p className='font-medium text-lg'>Name  :  {userProgress.name}</p>
+              </CardTitle> */}
             </CardHeader>
             <CardContent>
               {isLoading ? (
@@ -174,14 +181,14 @@ const HomePage = () => {
                 <div className="space-y-4">
                   <div className="flex justify-between items-center">
                     <h3 className="text-lg font-semibold text-gray-200">{userProgress.name}</h3>
-                    <div className="flex space-x-4">
+                    <div className="flex space-x-6">
                       <div className="flex items-center">
                         <Footprints className="w-4 h-4 mr-1 text-blue-400" />
-                        <span className="text-sm">{userProgress.totalSteps}</span>
+                        <span className="text-sm text-blue-300">{userProgress.totalSteps} Total Steps</span>
                       </div>
                       <div className="flex items-center">
                         <Award className="w-4 h-4 mr-1 text-yellow-400" />
-                        <span className="text-sm">{userProgress.totalPoints}</span>
+                        <span className="text-sm text-yellow-500">{userProgress.totalPoints} Total Points</span>
                       </div>
                     </div>
                   </div>
