@@ -19,7 +19,7 @@ Users connect their Solana wallet to track their progress, log steps, and mint u
 
 ## Website Demo
 
-![Mission Dashboard](https://github.com/akshaydhayal/Cudis-Rewards/blob/main/cudis-rewards-vercel-app.png)
+![Mission Dashboard](https://github.com/akshaydhayal/Cudis-Rewards/blob/main/cudis-rewards-vercel-app%20(1).png)
 
 *Figure 1: User's Weekly Dashboard with LeaderBoard*
 
